@@ -11,3 +11,13 @@ docker-compose up
 ```
 
 In the terminal you must see working dockerized node client
+
+## Enviroment variables
+
+Create .env file from .env.example and fill in the global variables
+
+Example
+
+```
+API_PORT=8000
+```
