@@ -19,6 +19,7 @@
   "homepage": "https://github.com/konkurenta/planner#readme",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.25.0",
     "eslint": "^7.24.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.1.0",
