@@ -1,7 +1,7 @@
 import "dotenv/config";
 
-import { cleanEnv, num } from "envalid";
+import { cleanEnv, port } from "envalid";
 
 const env = cleanEnv(process.env, {
-  API_PORT: num(),
+  API_PORT: port(),
 });
