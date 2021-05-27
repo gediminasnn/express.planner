@@ -4,16 +4,18 @@ import log4js from "log4js";
 export default class Bootstrap {
   public app: express.Application;
   private port = process.env.API_PORT || 1338;
-  private logger: log4js.Logger = log4js.getLogger();
 
   constructor() {
     this.app = express();
 
-    this.logger.level = "debug";
-    this.logger.debug("This is debug line");
-    this.logger.info("This is info line");
-    this.logger.fatal("This is fatal line");
-    this.logger.error("This is error line");
+    const logger: log4js.Logger = log4js.getLogger();
+    logger.level = "debug";
+
+    console.log = (args) => logger.info(args);
+    console.info = console.log;
+    console.warn = (args) => logger.warn(args);
+    console.error = (args) => logger.error(args);
+    console.debug = (args) => logger.debug(args);
 
     this.config();
     this.mount();
