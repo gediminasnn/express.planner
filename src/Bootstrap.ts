@@ -8,6 +8,11 @@ export default class Bootstrap {
   constructor() {
     this.app = express();
 
+    this.config();
+    this.mount();
+  }
+
+  private config(): void {
     const logger: log4js.Logger = log4js.getLogger();
     logger.level = "debug";
 
@@ -17,11 +22,6 @@ export default class Bootstrap {
     console.error = (args) => logger.error(args);
     console.debug = (args) => logger.debug(args);
 
-    this.config();
-    this.mount();
-  }
-
-  private config(): void {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
   }
