@@ -1,8 +1,9 @@
-import express from "express";
-import log4js from "log4js";
+import express from 'express';
+import log4js from 'log4js';
 
 export default class Bootstrap {
   public app: express.Application;
+
   private port = process.env.API_PORT || 1338;
 
   constructor() {
@@ -14,7 +15,7 @@ export default class Bootstrap {
 
   private config(): void {
     const logger: log4js.Logger = log4js.getLogger();
-    logger.level = "debug";
+    logger.level = 'debug';
 
     console.log = (args) => logger.info(args);
     console.info = console.log;
@@ -27,14 +28,12 @@ export default class Bootstrap {
   }
 
   private mount(): void {
-    this.app.get("/", (_, res: express.Response) => res.send("Hello World!"));
+    this.app.get('/', (_, res: express.Response) => res.send('Hello World!'));
   }
 
   listen(): void {
     this.app.listen(this.port, () => {
-      return console.log(
-        `Example app listening at http://localhost:${this.port}`
-      );
+      return console.log(`Example app listening at http://localhost:${this.port}`);
     });
   }
 }
