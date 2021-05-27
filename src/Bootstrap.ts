@@ -5,6 +5,7 @@ import { createConnection } from 'typeorm';
 import Controller from './Types/Controller';
 export default class Bootstrap implements Bootstrap {
   public app: express.Application;
+
   private port = process.env.API_PORT || 1338;
   private controllers: Controller[];
 
