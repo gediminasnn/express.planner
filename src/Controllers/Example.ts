@@ -1,9 +1,5 @@
 import { Request, Response, Router } from 'express';
 
-import typeorm from 'typeorm';
-
-import ExampleModel from '../Models/Example';
-
 import Controller from '../Types/Controller';
 
 export default class Example implements Controller {
