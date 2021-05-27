@@ -20,7 +20,14 @@ Example
 
 ```
 API_PORT=8000
+
+MYSQL_ROOT_PASSWORD=pass
+MYSQL_DATABASE=planner
+MYSQL_LOCAL_PORT=4000
+MYSQL_DOCKER_PORT=4000
+
 ```
+
 ## Technical description map
 
 ![Planner](https://user-images.githubusercontent.com/39725714/119777574-0c5f1e00-becf-11eb-87fa-096573a8fd1d.png)

@@ -1,12 +1,16 @@
-import express from "express";
-import log4js from "log4js";
+import express from 'express';
+import log4js from 'log4js';
+import { createConnection } from 'typeorm';
 
-export default class Bootstrap {
+import Controller from './Types/Controller';
+export default class Bootstrap implements Bootstrap {
   public app: express.Application;
   private port = process.env.API_PORT || 1338;
+  private controllers: Controller[];
 
-  constructor() {
+  constructor(controllers: Controller[]) {
     this.app = express();
+    this.controllers = controllers;
 
     this.config();
     this.mount();
@@ -14,7 +18,7 @@ export default class Bootstrap {
 
   private config(): void {
     const logger: log4js.Logger = log4js.getLogger();
-    logger.level = "debug";
+    logger.level = 'debug';
 
     console.log = (args) => logger.info(args);
     console.info = console.log;
@@ -27,14 +31,31 @@ export default class Bootstrap {
   }
 
   private mount(): void {
-    this.app.get("/", (_, res: express.Response) => res.send("Hello World!"));
+    this.app.get('/', (_, res: express.Response) => res.send('Hello World!'));
+
+    this.controllers.forEach((controller: Controller) => this.app.use(controller.router));
+  }
+
+  async initializeConnection() {
+    try {
+      await createConnection({
+        type: 'mysql',
+        host: 'database',
+        port: 3306,
+        username: 'root',
+        password: 'root',
+        database: 'planner',
+      });
+    } catch (e) {
+      throw new Error(e);
+    }
+
+    console.info('Mysql connection established!');
   }
 
   listen(): void {
     this.app.listen(this.port, () => {
-      return console.log(
-        `Example app listening at http://localhost:${this.port}`
-      );
+      return console.log(`Example app listening at http://localhost:${this.port}`);
     });
   }
 }
