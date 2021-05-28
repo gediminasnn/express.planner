@@ -3,7 +3,6 @@ import log4js from 'log4js';
 import { createConnection } from 'typeorm';
 
 import Controller from './Types/Controller';
-
 import IBootstrap from './Types/Bootstrap';
 
 export default class Bootstrap implements IBootstrap {
