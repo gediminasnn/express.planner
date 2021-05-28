@@ -4,6 +4,7 @@ import Controller from '../Types/Controller';
 
 export default class Example implements Controller {
   path: Controller['path'] = '/';
+
   router: Controller['router'] = Router();
 
   constructor() {
