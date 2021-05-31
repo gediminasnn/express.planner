@@ -3,7 +3,7 @@ import log4js from 'log4js';
 import { createConnection, DatabaseType } from 'typeorm';
 import path from 'path';
 
-import { stringToBoolean } from './Utils/Helpers';
+import databaseConfig from './Config/Database';
 
 import Controller from './Types/Controller';
 import IBootstrap from './Types/Bootstrap';
@@ -14,6 +14,8 @@ export default class Bootstrap implements IBootstrap {
   private port = process.env.API_PORT || 1338;
 
   private controllers: Controller[];
+
+  private databaseConfig = databaseConfig[process.env.NODE_ENV];
 
   constructor(controllers: Controller[]) {
     this.app = express();
@@ -43,24 +45,15 @@ export default class Bootstrap implements IBootstrap {
     this.controllers.forEach((controller: Controller) => this.app.use(controller.router));
   }
 
-  initializeConnection = async () => {
+  async initializeConnection() {
     try {
-      await createConnection({
-        type: 'mysql',
-        host: process.env.TYPEORM_CONN_HOST,
-        port: Number(process.env.TYPEORM_CONN_PORT),
-        username: process.env.MYSQL_ROOT_USERNAME,
-        password: process.env.MYSQL_ROOT_PASSWORD,
-        database: process.env.MYSQL_DATABASE,
-        entities: [path.join(__dirname, 'src/Entities/**/*{.ts,.js}')],
-        synchronize: stringToBoolean(process.env.TYPEORM_CONN_SYNC),
-      });
+      await createConnection(this.databaseConfig);
     } catch (e) {
       throw new Error(e);
     }
 
     console.info('Mysql connection established!');
-  };
+  }
 
   listen(): void {
     this.app.listen(this.port, () => {
