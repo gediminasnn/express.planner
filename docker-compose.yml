@@ -18,7 +18,7 @@ services:
   database:
     image: mysql
     restart: always
-    env_file: ./.env
+    env_file: .env
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
