@@ -1,7 +1,7 @@
 import path from 'path';
 
 export default {
-  production: {
+  prod: {
     type: 'mysql',
     host: process.env.MYSQL_HOST,
     port: Number(process.env.MYSQL_PORT),
@@ -11,7 +11,7 @@ export default {
     entities: [path.join(__dirname, 'src/Entities/*.ts')],
     synchronize: true,
   },
-  development: {
+  dev: {
     type: 'mysql',
     host: process.env.MYSQL_HOST,
     port: Number(process.env.MYSQL_PORT),
