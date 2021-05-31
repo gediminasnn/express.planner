@@ -8,7 +8,7 @@ export default {
     username: process.env.MYSQL_USERNAME,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE,
-    entities: [path.join(__dirname, 'src/Entities/*{.ts,.js}')],
+    entities: [path.join(__dirname, 'src/Entities/*.ts')],
     synchronize: true,
   },
   development: {
@@ -18,7 +18,7 @@ export default {
     username: process.env.MYSQL_USERNAME,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE,
-    entities: [path.join(__dirname, 'src/Entities/*{.ts,.js}')],
+    entities: [path.join(__dirname, 'src/Entities/*.ts')],
     synchronize: true,
   },
 };
