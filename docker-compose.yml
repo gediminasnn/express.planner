@@ -23,7 +23,7 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - 3306:${MYSQL_PORT}
+      - ${MYSQL_PORT}:${MYSQL_PORT}
     container_name: database
     logging:
       driver: none
