@@ -1,6 +1,9 @@
 import express from 'express';
 import log4js from 'log4js';
-import { createConnection } from 'typeorm';
+import { createConnection, DatabaseType } from 'typeorm';
+import path from 'path';
+
+import { stringToBoolean } from './Utils/Helpers';
 
 import Controller from './Types/Controller';
 import IBootstrap from './Types/Bootstrap';
@@ -44,11 +47,13 @@ export default class Bootstrap implements IBootstrap {
     try {
       await createConnection({
         type: 'mysql',
-        host: 'database',
-        port: 3306,
-        username: 'root',
+        host: process.env.TYPEORM_CONN_HOST,
+        port: Number(process.env.TYPEORM_CONN_PORT),
+        username: process.env.MYSQL_ROOT_USERNAME,
         password: process.env.MYSQL_ROOT_PASSWORD,
         database: process.env.MYSQL_DATABASE,
+        entities: [path.join(__dirname, 'src/Entities/**/*{.ts,.js}')],
+        synchronize: stringToBoolean(process.env.TYPEORM_CONN_SYNC),
       });
     } catch (e) {
       throw new Error(e);

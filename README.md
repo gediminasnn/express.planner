@@ -21,9 +21,14 @@ Example
 ```
 API_PORT=8000
 
+MYSQL_ROOT_USERNAME=root
 MYSQL_ROOT_PASSWORD=pass
 MYSQL_DATABASE=planner
 MYSQL_PORT=4000
+
+TYPEORM_CONN_HOST=database
+TYPEORM_CONN_PORT=3306 //by default 3306 is recommended, since docker's default internal port is 3306
+TYPEORM_CONN_SYNC=true
 
 ```
 
