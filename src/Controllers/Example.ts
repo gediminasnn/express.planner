@@ -3,7 +3,7 @@ import { Request, Response, Router } from 'express';
 import Controller from '../Types/Controller';
 
 export default class Example implements Controller {
-  path: Controller['path'] = '/';
+  path: Controller['path'] = '/example';
 
   router: Controller['router'] = Router();
 
@@ -12,6 +12,6 @@ export default class Example implements Controller {
   }
 
   initRoutes() {
-    this.router.get('/hello', (req: Request, res: Response) => res.send('Hello World from controller!'));
+    this.router.get(`${this.path}/hello`, (req: Request, res: Response) => res.send('Hello World from controller!'));
   }
 }
