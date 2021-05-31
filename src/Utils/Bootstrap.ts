@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { cleanEnv, port, str, bool } from 'envalid';
+import { cleanEnv, port, str } from 'envalid';
 
 const env = cleanEnv(process.env, {
   API_PORT: port(),
