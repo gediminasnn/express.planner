@@ -10,6 +10,7 @@ const app = new Bootstrap([new Example()]);
     await app.initializeConnection();
     app.listen();
   } catch (e) {
-    console.log(e);
+    console.error(e);
+    process.exit(1);
   }
 })();
