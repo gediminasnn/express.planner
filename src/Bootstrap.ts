@@ -1,12 +1,11 @@
 import express from 'express';
-
 import { createConnection } from 'typeorm';
 
-import { validateEnv, initLogger } from './Utils/Bootstrap';
 import databaseConfig from './Config/Database';
+import { validateEnv, initLogger } from './Utils/Bootstrap';
 
-import Controller from './Types/Controller';
 import IBootstrap from './Types/Bootstrap';
+import Controller from './Types/Controller';
 
 export default class Bootstrap implements IBootstrap {
   public app: express.Application;
