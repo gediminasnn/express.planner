@@ -20,7 +20,16 @@ Example
 
 ```
 API_PORT=8000
+
+MYSQL_USERNAME=root
+MYSQL_PASSWORD=pass
+MYSQL_DATABASE=planner
+MYSQL_HOST=database
+MYSQL_PORT=3306
+
+NODE_ENV=production
 ```
+
 ## Technical description map
 
 ![Planner](https://user-images.githubusercontent.com/39725714/119777574-0c5f1e00-becf-11eb-87fa-096573a8fd1d.png)

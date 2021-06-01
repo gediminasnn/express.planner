@@ -1,4 +1,4 @@
-version: "3.4"
+version: '3.4'
 
 services:
   app:
@@ -11,17 +11,24 @@ services:
     env_file:
       - .env
     ports:
-      - "${API_PORT}:${API_PORT}"
+      - '${API_PORT}:${API_PORT}'
     command: npm run dev
-  planner-database:
+    networks:
+      - planner_default
+  database:
     image: mysql
     restart: always
-    env_file: ./.env
+    env_file: .env
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - $MYSQL_LOCAL_PORT:$MYSQL_DOCKER_PORT
-    container_name: planner-database
+      - ${MYSQL_PORT}:${MYSQL_PORT}
+    container_name: ${MYSQL_HOST}
     logging:
       driver: none
+    networks:
+      - planner_default
+networks:
+  planner_default:
+    driver: bridge
