@@ -1,7 +1,7 @@
 import express from 'express';
 import { createConnection } from 'typeorm';
 
-import databaseConfig from './Config/Database';
+import ormConfig from '../ormconfig';
 import { validateEnv, initLogger } from './Utils/Bootstrap';
 
 import IBootstrap from './Types/Bootstrap';
@@ -14,7 +14,7 @@ export default class Bootstrap implements IBootstrap {
 
   private controllers: Controller[];
 
-  private databaseConfig = databaseConfig[process.env.NODE_ENV];
+  private ormConfig = ormConfig[process.env.NODE_ENV];
 
   constructor(controllers: Controller[]) {
     this.app = express();
@@ -40,7 +40,7 @@ export default class Bootstrap implements IBootstrap {
 
   async initializeConnection() {
     try {
-      await createConnection(this.databaseConfig);
+      await createConnection(this.ormConfig);
     } catch (e) {
       throw new Error(e);
     }
