@@ -27,7 +27,7 @@ MYSQL_DATABASE=planner
 MYSQL_HOST=database
 MYSQL_PORT=3306
 
-NODE_ENV=dev
+NODE_ENV=production
 ```
 
 ## Technical description map
