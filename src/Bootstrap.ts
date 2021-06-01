@@ -1,8 +1,8 @@
 import express from 'express';
-import log4js from 'log4js';
-import { createConnection, DatabaseType } from 'typeorm';
-import path from 'path';
 
+import { createConnection } from 'typeorm';
+
+import { validateEnv, initLogger } from './Utils/Bootstrap';
 import databaseConfig from './Config/Database';
 
 import Controller from './Types/Controller';
@@ -26,14 +26,9 @@ export default class Bootstrap implements IBootstrap {
   }
 
   private config(): void {
-    const logger: log4js.Logger = log4js.getLogger();
-    logger.level = 'debug';
+    validateEnv();
 
-    console.log = (args) => logger.info(args);
-    console.info = console.log;
-    console.warn = (args) => logger.warn(args);
-    console.error = (args) => logger.error(args);
-    console.debug = (args) => logger.debug(args);
+    initLogger();
 
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
