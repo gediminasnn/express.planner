@@ -3,10 +3,11 @@ import path from 'path';
 const recurringValues = {
   type: 'mysql',
   entities: [path.join(__dirname, 'src/Entities/*.ts')],
+  cli: { entitiesDir: path.join(__dirname, 'src/Entities') },
   synchronize: true,
 };
 
-export default {
+const ormConfig = {
   production: {
     ...recurringValues,
     host: process.env.MYSQL_HOST,
@@ -32,3 +33,5 @@ export default {
     database: process.env.MYSQL_DATABASE,
   },
 };
+
+export = ormConfig[process.env.NODE_ENV];
