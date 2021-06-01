@@ -1,5 +1,3 @@
-import './Utils/Bootstrap';
-
 import Bootstrap from './Bootstrap';
 import Example from './Controllers/Example';
 
