@@ -78,7 +78,7 @@ export default class Bootstrap implements IBootstrap {
 
         const users = await userRepository.find();
 
-        return res.json(users);
+        return res.status(200).json(users);
       } catch (e) {
         return res.status(500).json(e);
       }
