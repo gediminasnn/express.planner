@@ -93,7 +93,7 @@ export default class Bootstrap implements IBootstrap {
         const randomUserId = usersIds[Math.floor(Math.random() * usersIds.length)];
         const user = await userRepository.findOne(randomUserId);
 
-        user.username = 'changed';
+        user.username = `${faker.internet.userName()}changed`;
 
         await userRepository.save(user);
 
