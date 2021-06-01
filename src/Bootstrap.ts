@@ -41,7 +41,7 @@ export default class Bootstrap implements IBootstrap {
     this.controllers.forEach((controller: Controller) => this.app.use(controller.router));
   }
 
-  async initializeConnection() {
+  async initializeConnection(): Promise<void> {
     try {
       await createConnection(this.ormConfig);
     } catch (e) {
