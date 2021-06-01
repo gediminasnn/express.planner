@@ -26,7 +26,6 @@ export default class Bootstrap implements IBootstrap {
 
   private config(): void {
     validateEnv();
-
     initLogger();
 
     this.app.use(express.json());
