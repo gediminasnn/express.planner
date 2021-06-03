@@ -1,8 +1,11 @@
 import 'dotenv/config';
 import { cleanEnv, port, str } from 'envalid';
 import log4js from 'log4js';
+import { createConnection } from 'typeorm';
 
-const validateEnv = () =>
+import { databaseConfig } from '../Configs/DatabaseConfig';
+
+export const validateEnv = () =>
   cleanEnv(process.env, {
     API_PORT: port(),
 
@@ -15,7 +18,7 @@ const validateEnv = () =>
     NODE_ENV: str(),
   });
 
-const initLogger = () => {
+export const initLogger = () => {
   const logger: log4js.Logger = log4js.getLogger();
   logger.level = 'debug';
 
@@ -26,4 +29,12 @@ const initLogger = () => {
   console.debug = (args) => logger.debug(args);
 };
 
-export { validateEnv, initLogger };
+// export const initializeConnection = async (): Promise<void> => {
+//   try {
+//     await createConnection(databaseConfig[process.env.NODE_ENV]);
+//   } catch (e) {
+//     throw new Error(e);
+//   }
+
+//   console.info('Mysql connection established!');
+// };

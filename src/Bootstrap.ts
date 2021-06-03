@@ -1,11 +1,8 @@
 import express from 'express';
-import { createConnection, getRepository, Repository } from 'typeorm';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import faker from 'faker';
+import { createConnection } from 'typeorm';
 
-import ormConfig from '../ormconfig';
 import { validateEnv, initLogger } from './Utils/Bootstrap';
-import User from './Entities/User';
+import { databaseConfig } from './Configs/DatabaseConfig';
 
 import IBootstrap from './Types/Bootstrap';
 import Controller from './Types/Controller';
@@ -17,7 +14,7 @@ export default class Bootstrap implements IBootstrap {
 
   private controllers: Controller[];
 
-  private ormConfig = ormConfig[process.env.NODE_ENV];
+  private databaseConfig = databaseConfig[process.env.NODE_ENV];
 
   constructor(controllers: Controller[]) {
     this.app = express();
@@ -27,7 +24,11 @@ export default class Bootstrap implements IBootstrap {
     this.mount();
   }
 
-  private config(): void {
+  public mountRepositories() {
+    this.controllers[0].initRepository();
+  }
+
+  private async config(): Promise<void> {
     validateEnv();
     initLogger();
 
@@ -35,15 +36,17 @@ export default class Bootstrap implements IBootstrap {
     this.app.use(express.urlencoded({ extended: true }));
   }
 
-  private mount(): void {
+  private async mount() {
     this.app.get('/', (_, res: express.Response) => res.send('Hello World!'));
 
-    this.controllers.forEach((controller: Controller) => this.app.use(controller.router));
+    this.controllers.forEach((controller: Controller) => {
+      this.app.use(controller.router);
+    });
   }
 
-  async initializeConnection(): Promise<void> {
+  public async initializeConnection(): Promise<void> {
     try {
-      await createConnection(this.ormConfig);
+      await createConnection(this.databaseConfig[process.env.NODE_ENV]);
     } catch (e) {
       throw new Error(e);
     }
@@ -52,60 +55,6 @@ export default class Bootstrap implements IBootstrap {
   }
 
   listen(): void {
-    this.app.get('/create', async (_, res: express.Response) => {
-      try {
-        const userRepository: Repository<User> = getRepository(User);
-
-        const user = new User();
-        user.email = faker.internet.email();
-        user.username = faker.internet.userName();
-        user.password = faker.internet.password();
-
-        await userRepository.save(user);
-
-        return res.status(200).json({
-          data: user,
-          message: 'User saved successfully',
-        });
-      } catch (e) {
-        return res.status(500).json(e);
-      }
-    });
-
-    this.app.get('/findall', async (_, res: express.Response) => {
-      try {
-        const userRepository: Repository<User> = getRepository(User);
-
-        const users = await userRepository.find();
-
-        return res.status(200).json(users);
-      } catch (e) {
-        return res.status(500).json(e);
-      }
-    });
-
-    this.app.get('/update', async (_, res: express.Response) => {
-      try {
-        const userRepository: Repository<User> = getRepository(User);
-
-        const users = await userRepository.find();
-        const usersIds = users.map((user) => user.id);
-        const randomUserId = usersIds[Math.floor(Math.random() * usersIds.length)];
-        const user = await userRepository.findOne(randomUserId);
-
-        user.username = `${faker.internet.userName()}changed`;
-
-        await userRepository.save(user);
-
-        return res.status(200).json({
-          data: user,
-          message: 'User updated successfully',
-        });
-      } catch (e) {
-        return res.status(500).json(e);
-      }
-    });
-
     this.app.listen(this.port, () => {
       return console.log(`Example app listening at http://localhost:${this.port}`);
     });

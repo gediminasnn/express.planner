@@ -1,11 +1,14 @@
 import Bootstrap from './Bootstrap';
-import Example from './Controllers/Example';
+import User from './Controllers/User';
 
-const app = new Bootstrap([new Example()]);
+const app = new Bootstrap([new User()]);
 
 (async () => {
   try {
     await app.initializeConnection();
+
+    app.mountRepositories();
+
     app.listen();
   } catch (e) {
     console.error(e);
