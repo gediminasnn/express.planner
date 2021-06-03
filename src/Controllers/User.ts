@@ -16,7 +16,7 @@ export default class UserController implements Controller {
     this.initRoutes();
   }
 
-  public initRepository() {
+  public mountRepository() {
     this.userRepository = getRepository(User);
   }
 

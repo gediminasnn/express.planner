@@ -4,7 +4,7 @@ interface Controller {
   path: string;
   router: Router;
 
-  initRepository: () => void;
+  mountRepository: () => void;
   initRoutes: () => void;
 }
 

@@ -52,7 +52,7 @@ export default class Bootstrap implements IBootstrap {
 
   public mountRepositories(): void {
     this.controllers.forEach((controller: Controller) => {
-      controller.initRepository();
+      controller.mountRepository();
     });
   }
 
