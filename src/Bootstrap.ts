@@ -24,7 +24,7 @@ export default class Bootstrap implements IBootstrap {
     this.mount();
   }
 
-  private async config(): Promise<void> {
+  private config(): void {
     validateEnv();
     initLogger();
 
