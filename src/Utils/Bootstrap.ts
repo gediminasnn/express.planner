@@ -1,9 +1,6 @@
 import 'dotenv/config';
 import { cleanEnv, port, str } from 'envalid';
 import log4js from 'log4js';
-import { createConnection } from 'typeorm';
-
-import { databaseConfig } from '../Configs/DatabaseConfig';
 
 export const validateEnv = () =>
   cleanEnv(process.env, {

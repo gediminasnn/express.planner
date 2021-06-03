@@ -2,7 +2,7 @@ import express from 'express';
 import { createConnection } from 'typeorm';
 
 import { validateEnv, initLogger } from './Utils/Bootstrap';
-import { databaseConfig } from './Configs/DatabaseConfig';
+import { databaseConfig } from './Configs/Database';
 
 import IBootstrap from './Types/Bootstrap';
 import Controller from './Types/Controller';
