@@ -28,13 +28,3 @@ export const initLogger = () => {
   console.error = (args) => logger.error(args);
   console.debug = (args) => logger.debug(args);
 };
-
-// export const initializeConnection = async (): Promise<void> => {
-//   try {
-//     await createConnection(databaseConfig[process.env.NODE_ENV]);
-//   } catch (e) {
-//     throw new Error(e);
-//   }
-
-//   console.info('Mysql connection established!');
-// };
