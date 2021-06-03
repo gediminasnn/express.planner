@@ -32,7 +32,7 @@ export default class Bootstrap implements IBootstrap {
     this.app.use(express.urlencoded({ extended: true }));
   }
 
-  private async mount() {
+  private mount(): void {
     this.app.get('/', (_, res: express.Response) => res.send('Hello World!'));
 
     this.controllers.forEach((controller: Controller) => {
@@ -50,7 +50,7 @@ export default class Bootstrap implements IBootstrap {
     console.info('Mysql connection established!');
   }
 
-  public mountRepositories() {
+  public mountRepositories(): void {
     this.controllers.forEach((controller: Controller) => {
       controller.initRepository();
     });
