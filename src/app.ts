@@ -8,7 +8,6 @@ const app = new Bootstrap([new UserController()]);
     await app.initializeConnection();
 
     app.mountRepositories();
-
     app.listen();
   } catch (e) {
     console.error(e);

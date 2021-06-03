@@ -24,10 +24,6 @@ export default class Bootstrap implements IBootstrap {
     this.mount();
   }
 
-  public mountRepositories() {
-    this.controllers[0].initRepository();
-  }
-
   private async config(): Promise<void> {
     validateEnv();
     initLogger();
@@ -52,6 +48,12 @@ export default class Bootstrap implements IBootstrap {
     }
 
     console.info('Mysql connection established!');
+  }
+
+  public mountRepositories() {
+    this.controllers.forEach((controller: Controller) => {
+      controller.initRepository();
+    });
   }
 
   listen(): void {
