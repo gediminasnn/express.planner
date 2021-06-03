@@ -1,7 +1,7 @@
 import Bootstrap from './Bootstrap';
-import User from './Controllers/User';
+import UserController from './Controllers/User';
 
-const app = new Bootstrap([new User()]);
+const app = new Bootstrap([new UserController()]);
 
 (async () => {
   try {
