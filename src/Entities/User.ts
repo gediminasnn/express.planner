@@ -28,5 +28,5 @@ export default class User {
 
   @Column()
   @DeleteDateColumn()
-  deletedAt: Date;
+  deletedAt: Date | null;
 }
