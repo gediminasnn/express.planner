@@ -20,7 +20,7 @@ export default class UserController implements Controller {
     this.userRepository = getRepository(User);
   }
 
-  public async postUser(req: Request, res: Response) {
+  public async create(req: Request, res: Response) {
     const { email, username, password } = req.body;
 
     try {
