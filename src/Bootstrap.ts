@@ -42,7 +42,7 @@ export default class Bootstrap implements IBootstrap {
 
   public async initializeConnection(): Promise<void> {
     try {
-      await createConnection(this.databaseConfig[process.env.NODE_ENV]);
+      await createConnection(this.databaseConfig);
     } catch (e) {
       throw new Error(e);
     }
