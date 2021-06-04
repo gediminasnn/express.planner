@@ -35,7 +35,7 @@ export default class UserController implements Controller {
     } catch (e) {
       console.error(e);
 
-      return res.status(500).json('User creation failed :(');
+      return res.status(500).send('User creation failed :(');
     }
   }
 
@@ -47,7 +47,7 @@ export default class UserController implements Controller {
     } catch (e) {
       console.error(e);
 
-      return res.status(500).json('Users search failed :(');
+      return res.status(500).send('Users search failed :(');
     }
   }
 
@@ -63,7 +63,7 @@ export default class UserController implements Controller {
     } catch (e) {
       console.error(e);
 
-      return res.status(500).json('User search failed :(');
+      return res.status(500).send('User search failed :(');
     }
   }
 
@@ -86,7 +86,7 @@ export default class UserController implements Controller {
     } catch (e) {
       console.error(e);
 
-      return res.status(500).json('Updateing user unsuccessful :(');
+      return res.status(500).send('Updateing user unsuccessful :(');
     }
   }
 
@@ -98,13 +98,11 @@ export default class UserController implements Controller {
     try {
       await this.userRepository.softDelete(id);
 
-      return res.status(200).json({
-        message: `User ${id} deletion successful`,
-      });
+      return res.status(200).send(`User ${id} deletion successful`);
     } catch (e) {
       console.error(e);
 
-      return res.status(500).json('Deleting user unsuccessful :(');
+      return res.status(500).send('Deleting user unsuccessful :(');
     }
   }
 
