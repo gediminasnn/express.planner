@@ -31,10 +31,7 @@ export default class UserController implements Controller {
 
       await this.userRepository.save(user);
 
-      return res.status(200).json({
-        data: user,
-        message: 'User saved successfully',
-      });
+      return res.status(200).json(user);
     } catch (e) {
       console.error(e);
 
@@ -85,10 +82,7 @@ export default class UserController implements Controller {
 
       await this.userRepository.save(user);
 
-      return res.status(200).json({
-        data: user,
-        message: 'User updated successfully',
-      });
+      return res.status(200).json(user);
     } catch (e) {
       console.error(e);
 
