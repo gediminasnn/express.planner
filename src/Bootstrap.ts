@@ -51,9 +51,7 @@ export default class Bootstrap implements IBootstrap {
   }
 
   public mountRepositories(): void {
-    this.controllers.forEach((controller: Controller) => {
-      controller.mountRepository();
-    });
+    this.controllers.forEach((controller: Controller) => controller.mountRepository());
   }
 
   listen(): void {
