@@ -107,7 +107,7 @@ export default class UserController implements Controller {
   }
 
   initRoutes() {
-    this.router.post(`${this.path}`, this.postUser.bind(this));
+    this.router.post(`${this.path}`, this.create.bind(this));
     this.router.get(`${this.path}`, this.getUsers.bind(this));
     this.router.get(`${this.path}/:id`, this.getUser.bind(this));
     this.router.put(`${this.path}/:id`, this.updateUser.bind(this));
