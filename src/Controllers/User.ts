@@ -81,7 +81,7 @@ export default class UserController implements Controller {
     } = req;
 
     try {
-      const user = await this.userRepository.findOne(id);
+      const user = await this.userRepository.findOneOrFail(id);
 
       return res.status(200).json(user);
     } catch (e) {
