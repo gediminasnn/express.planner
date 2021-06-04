@@ -114,30 +114,11 @@ export default class UserController implements Controller {
     }
   }
 
-  public async undeleteUser(req: Request, res: Response) {
-    const {
-      params: { id },
-    } = req;
-
-    try {
-      await this.userRepository.restore(id);
-
-      return res.status(200).json({
-        message: `User ${id} undeletion successful`,
-      });
-    } catch (e) {
-      console.error(e);
-
-      return res.status(500).json('User undeletion unsuccessful :(');
-    }
-  }
-
   initRoutes() {
     this.router.post(`${this.path}`, this.postUser.bind(this));
     this.router.get(`${this.path}`, this.getUsers.bind(this));
     this.router.get(`${this.path}/:id`, this.getUser.bind(this));
     this.router.put(`${this.path}/:id`, this.updateUser.bind(this));
     this.router.delete(`${this.path}/:id`, this.deleteUser.bind(this));
-    this.router.put(`${this.path}/undelete/:id`, this.undeleteUser.bind(this));
   }
 }
