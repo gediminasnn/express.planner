@@ -6,7 +6,8 @@ import { initializeConnection } from './Utils/app';
   try {
     await initializeConnection();
 
-    app.mountRepositories();
+    const app = new Bootstrap([new UserController()]);
+
     app.listen();
   } catch (e) {
     console.error(e);

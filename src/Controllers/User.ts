@@ -11,14 +11,10 @@ export default class UserController implements Controller {
 
   router: Controller['router'] = Router();
 
-  userRepository: Repository<User>;
+  userRepository: Repository<User> = getRepository(User);
 
   constructor() {
     this.initRoutes();
-  }
-
-  public mountRepository() {
-    this.userRepository = getRepository(User);
   }
 
   public async create({ body: { email, username, password } }: Request, res: Response) {
