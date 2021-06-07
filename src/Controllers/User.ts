@@ -39,7 +39,7 @@ export default class UserController implements Controller {
     }
   }
 
-  public async getUsers(req: Request, res: Response) {
+  public async findMany(req: Request, res: Response) {
     let { order, start, limit } = { ...req.query } as unknown as {
       order: string | undefined;
       start: number | undefined;
@@ -75,7 +75,7 @@ export default class UserController implements Controller {
     }
   }
 
-  public async getUser(req: Request, res: Response) {
+  public async findOne(req: Request, res: Response) {
     const {
       params: { id },
     } = req;
@@ -91,7 +91,7 @@ export default class UserController implements Controller {
     }
   }
 
-  public async updateUser(req: Request, res: Response) {
+  public async update(req: Request, res: Response) {
     const {
       params: { id },
     } = req;
@@ -114,7 +114,7 @@ export default class UserController implements Controller {
     }
   }
 
-  public async deleteUser(req: Request, res: Response) {
+  public async delete(req: Request, res: Response) {
     const {
       params: { id },
     } = req;
@@ -132,9 +132,9 @@ export default class UserController implements Controller {
 
   initRoutes() {
     this.router.post(`${this.path}`, this.create.bind(this));
-    this.router.get(`${this.path}`, this.getUsers.bind(this));
-    this.router.get(`${this.path}/:id`, this.getUser.bind(this));
-    this.router.put(`${this.path}/:id`, this.updateUser.bind(this));
-    this.router.delete(`${this.path}/:id`, this.deleteUser.bind(this));
+    this.router.get(`${this.path}`, this.findMany.bind(this));
+    this.router.get(`${this.path}/:id`, this.findOne.bind(this));
+    this.router.put(`${this.path}/:id`, this.update.bind(this));
+    this.router.delete(`${this.path}/:id`, this.delete.bind(this));
   }
 }
