@@ -33,7 +33,7 @@ export default class Bootstrap implements IBootstrap {
   }
 
   private mount(): void {
-    this.app.get('/', (_, res: express.Response) => res.send('Hello World!'));
+    this.app.get('/', (_, { send }: express.Response) => send('Hello World!'));
 
     this.controllers.forEach(({ router }: Controller) => this.app.use(router));
   }

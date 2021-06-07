@@ -20,9 +20,7 @@ export default class UserController implements Controller {
     this.userRepository = getRepository(User);
   }
 
-  public async create(req: Request, res: Response) {
-    const { email, username, password } = req.body;
-
+  public async create({ body: { email, username, password } }: Request, res: Response) {
     try {
       const user = new User();
       user.email = email;
@@ -72,11 +70,7 @@ export default class UserController implements Controller {
     }
   }
 
-  public async findOne(req: Request, res: Response) {
-    const {
-      params: { id },
-    } = req;
-
+  public async findOne({ params: { id } }: Request, res: Response) {
     try {
       const user = await this.userRepository.findOneOrFail(id);
 
@@ -88,12 +82,7 @@ export default class UserController implements Controller {
     }
   }
 
-  public async update(req: Request, res: Response) {
-    const {
-      params: { id },
-    } = req;
-    const { email, username, password } = req.body;
-
+  public async update({ params: { id }, body: { email, username, password } }: Request, res: Response) {
     try {
       const user = await this.userRepository.findOne(id);
 
@@ -111,11 +100,7 @@ export default class UserController implements Controller {
     }
   }
 
-  public async delete(req: Request, res: Response) {
-    const {
-      params: { id },
-    } = req;
-
+  public async delete({ params: { id } }: Request, res: Response) {
     try {
       await this.userRepository.softDelete(id);
 
