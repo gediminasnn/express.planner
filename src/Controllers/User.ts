@@ -4,6 +4,7 @@ import { Repository, getRepository } from 'typeorm';
 import User from '../Entities/User';
 
 import Controller from '../Types/Controller';
+import { Order, PaginationVariables } from '../Types/User';
 
 export default class UserController implements Controller {
   path: Controller['path'] = '/users';
