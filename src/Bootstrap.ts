@@ -35,9 +35,7 @@ export default class Bootstrap implements IBootstrap {
   private mount(): void {
     this.app.get('/', (_, res: express.Response) => res.send('Hello World!'));
 
-    this.controllers.forEach((controller: Controller) => {
-      this.app.use(controller.router);
-    });
+    this.controllers.forEach(({ router }: Controller) => this.app.use(router));
   }
 
   public async initializeConnection(): Promise<void> {
