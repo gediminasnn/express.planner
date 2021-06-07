@@ -32,7 +32,6 @@ export default class UserController implements Controller {
       return res.status(200).json(user);
     } catch (e) {
       console.error(e);
-
       return res.status(500).send('User creation failed :(');
     }
   }
@@ -65,7 +64,6 @@ export default class UserController implements Controller {
       return res.status(200).json(users);
     } catch (e) {
       console.error(e);
-
       return res.status(500).send('Users search failed :(');
     }
   }
@@ -77,7 +75,6 @@ export default class UserController implements Controller {
       return res.status(200).json(user);
     } catch (e) {
       console.error(e);
-
       return res.status(500).send('User search failed :(');
     }
   }
@@ -95,7 +92,6 @@ export default class UserController implements Controller {
       return res.status(200).json(user);
     } catch (e) {
       console.error(e);
-
       return res.status(500).send('Updateing user unsuccessful :(');
     }
   }
@@ -107,7 +103,6 @@ export default class UserController implements Controller {
       return res.status(200).send(`User ${id} deletion successful`);
     } catch (e) {
       console.error(e);
-
       return res.status(500).send('Deleting user unsuccessful :(');
     }
   }
