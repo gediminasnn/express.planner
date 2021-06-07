@@ -1,11 +1,10 @@
 import Bootstrap from './Bootstrap';
 import UserController from './Controllers/User';
-
-const app = new Bootstrap([new UserController()]);
+import { initializeConnection } from './Utils/app';
 
 (async () => {
   try {
-    await app.initializeConnection();
+    await initializeConnection();
 
     app.mountRepositories();
     app.listen();

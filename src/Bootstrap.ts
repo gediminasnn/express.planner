@@ -1,5 +1,4 @@
 import express from 'express';
-import { createConnection } from 'typeorm';
 
 import { validateEnv, initLogger } from './Utils/Bootstrap';
 import { databaseConfig } from './Configs/Database';
@@ -36,20 +35,6 @@ export default class Bootstrap implements IBootstrap {
     this.app.get('/', (_, { send }: express.Response) => send('Hello World!'));
 
     this.controllers.forEach(({ router }: Controller) => this.app.use(router));
-  }
-
-  public async initializeConnection(): Promise<void> {
-    try {
-      await createConnection(this.databaseConfig);
-    } catch (e) {
-      throw new Error(e);
-    }
-
-    console.info('Mysql connection established!');
-  }
-
-  public mountRepositories(): void {
-    this.controllers.forEach((controller: Controller) => controller.mountRepository());
   }
 
   listen(): void {
