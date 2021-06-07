@@ -37,6 +37,9 @@ export default class UserController implements Controller {
   }
 
   public async findMany(
+    { query: { order = 'DESC', start = 0, limit = 10 } }: Request<any, any, any, PaginationVariables>,
+    res: Response,
+  ) {
     try {
       const users = await this.userRepository
         .createQueryBuilder('user')
