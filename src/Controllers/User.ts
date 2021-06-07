@@ -57,15 +57,12 @@ export default class UserController implements Controller {
     }
 
     try {
-      let users = await this.userRepository.find();
-
-      if (order === 'ASC') {
-        users = users.sort((a, b) => (a.createdAt.getTime() > b.createdAt.getTime() ? 1 : -1));
-      } else if (order === 'DESC') {
-        users = users.sort((a, b) => (b.createdAt.getTime() > a.createdAt.getTime() ? 1 : -1));
-      }
-
-      users = users.slice(start - 1, limit);
+      const users = await this.userRepository
+        .createQueryBuilder('user')
+        .orderBy('user.createdAt', order as 'ASC' | 'DESC')
+        .skip(start)
+        .take(limit)
+        .getMany();
 
       return res.status(200).json(users);
     } catch (e) {
