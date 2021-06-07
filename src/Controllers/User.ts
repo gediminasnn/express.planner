@@ -38,12 +38,7 @@ export default class UserController implements Controller {
     res: Response,
   ) {
     try {
-      const users = await this.userRepository
-        .createQueryBuilder('user')
-        .orderBy('user.createdAt', order as 'ASC' | 'DESC')
-        .skip(start)
-        .take(limit)
-        .getMany();
+      const users = await this.userRepository.find({ order: { createdAt: order as Order }, take: limit, skip: start });
 
       return res.status(200).json(users);
     } catch (e) {
