@@ -36,23 +36,7 @@ export default class UserController implements Controller {
     }
   }
 
-  public async findMany(req: Request, res: Response) {
-    let { order, start, limit } = { ...req.query } as unknown as {
-      order: string | undefined;
-      start: number | undefined;
-      limit: number | undefined;
-    };
-
-    if (order === undefined) {
-      order = 'DESC';
-    }
-    if (start === undefined) {
-      start = 0;
-    }
-    if (limit === undefined) {
-      limit = 10;
-    }
-
+  public async findMany(
     try {
       const users = await this.userRepository
         .createQueryBuilder('user')
