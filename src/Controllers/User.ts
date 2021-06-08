@@ -2,6 +2,7 @@ import { Request, Response, Router } from 'express';
 import { Repository, getRepository } from 'typeorm';
 
 import User from '../Entities/User';
+import UserService from '../Services/User';
 
 import Controller from '../Types/Controller';
 import { Order, PaginationVariables } from '../Types/User';
@@ -13,16 +14,17 @@ export default class UserController implements Controller {
 
   userRepository: Repository<User> = getRepository(User);
 
+  // TODO: Use interface
+  userService: UserService;
+
   constructor() {
     this.initRoutes();
+    this.userService = new UserService();
   }
 
   public async create({ body: { email, username, password } }: Request, res: Response) {
     try {
-      const user = await this.userRepository.create({ email, username, password });
-
-      await this.userRepository.save(user);
-
+      const user = await this.userService.createUser(email, username, password);
       return res.status(200).json(user);
     } catch (e) {
       console.error(e);
