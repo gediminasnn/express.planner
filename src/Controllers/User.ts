@@ -57,13 +57,9 @@ export default class UserController implements Controller {
 
   public async update({ params: { id }, body: { email, username, password } }: Request, res: Response) {
     try {
-      const user = await this.userRepository.findOne(id);
+      const user = await this.userRepository.findOneOrFail(id);
 
-      user.email = email;
-      user.username = username;
-      user.password = password;
-
-      await this.userRepository.save(user);
+      await this.userRepository.save({ ...user, email, username, password });
 
       return res.status(200).json(user);
     } catch (e) {
