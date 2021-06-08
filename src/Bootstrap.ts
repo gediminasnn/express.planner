@@ -1,7 +1,6 @@
 import express from 'express';
 
 import { validateEnv, initLogger } from './Utils/Bootstrap';
-import { databaseConfig } from './Configs/Database';
 
 import IBootstrap from './Types/Bootstrap';
 import Controller from './Types/Controller';
@@ -12,8 +11,6 @@ export default class Bootstrap implements IBootstrap {
   private port = process.env.API_PORT || 1338;
 
   private controllers: Controller[];
-
-  private databaseConfig = databaseConfig[process.env.NODE_ENV];
 
   constructor(controllers: Controller[]) {
     this.app = express();

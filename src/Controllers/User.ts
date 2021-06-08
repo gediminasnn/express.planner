@@ -33,11 +33,11 @@ export default class UserController implements Controller {
   }
 
   public async findMany(
-    { query: { order = 'DESC', start = 0, limit = 10 } }: Request<any, any, any, PaginationVariables>,
+    { query: { order = Order.DESC, start = 0, limit = 10 } }: Request<any, any, any, PaginationVariables>,
     res: Response,
   ) {
     try {
-      const users = await this.userRepository.find({ order: { createdAt: order as Order }, take: limit, skip: start });
+      const users = await this.userRepository.find({ order: { createdAt: order }, take: limit, skip: start });
 
       return res.status(200).json(users);
     } catch (e) {
@@ -59,13 +59,9 @@ export default class UserController implements Controller {
 
   public async update({ params: { id }, body: { email, username, password } }: Request, res: Response) {
     try {
-      const user = await this.userRepository.findOne(id);
+      const user = await this.userRepository.findOneOrFail(id);
 
-      user.email = email;
-      user.username = username;
-      user.password = password;
-
-      await this.userRepository.save(user);
+      await this.userRepository.save({ ...user, email, username, password });
 
       return res.status(200).json(user);
     } catch (e) {
