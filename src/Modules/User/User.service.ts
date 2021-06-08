@@ -11,7 +11,7 @@ export default class UserService implements IUserService {
     this.userRepository = getRepository(UserEntity);
   }
 
-  public postUser(email: string, username: string, password: string) {
+  public createUser(email: string, username: string, password: string) {
     const user = this.userRepository.create({ email, username, password });
     return this.userRepository.save(user);
   }
