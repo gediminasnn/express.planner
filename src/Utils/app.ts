@@ -6,7 +6,7 @@ const { NODE_ENV } = process.env;
 
 export const initializeConnection = async (): Promise<void> => {
   try {
-    await createConnection(NODE_ENV);
+    await createConnection(databaseConfig[NODE_ENV]);
   } catch (e) {
     throw new Error(e);
   }
