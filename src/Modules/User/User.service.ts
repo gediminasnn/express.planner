@@ -1,14 +1,14 @@
 import { Repository, getRepository } from 'typeorm';
 
-import User from './User.entity';
+import UserEntity from './User.entity';
 
 import { PaginationVariables, UserService as IUserService } from './types';
 
 export default class UserService implements IUserService {
-  userRepository: Repository<User>;
+  userRepository: Repository<UserEntity>;
 
   constructor() {
-    this.userRepository = getRepository(User);
+    this.userRepository = getRepository(UserEntity);
   }
 
   public postUser(email: string, username: string, password: string) {
