@@ -17,7 +17,11 @@ export default class UserService implements IUserService {
     return this.userRepository.save(user);
   }
 
-  public findManyUsers({ order, start, limit }: PaginationVariables) {
+  public findManyUsers(
+    order: PaginationVariables['order'],
+    start: PaginationVariables['start'],
+    limit: PaginationVariables['limit'],
+  ) {
     return this.userRepository.find({ order: { createdAt: order }, take: limit, skip: start });
   }
 

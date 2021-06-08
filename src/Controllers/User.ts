@@ -38,7 +38,7 @@ export default class UserController implements Controller {
     res: Response,
   ) {
     try {
-      const users = await this.userService.findManyUsers({ order, start, limit });
+      const users = await this.userService.findManyUsers(order, start, limit);
 
       return res.status(200).json(users);
     } catch (e) {
