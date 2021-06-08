@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
 import { Repository, getRepository } from 'typeorm';
 
-import User from './User.entity';
+import UserEntity from './User.entity';
 import UserService from './User.service';
 
 import Controller from '../../Types/Controller';
@@ -12,7 +12,7 @@ export default class UserController implements Controller {
 
   router: Controller['router'] = Router();
 
-  userRepository: Repository<User> = getRepository(User);
+  userRepository: Repository<UserEntity> = getRepository(UserEntity);
 
   userService: IUserService;
 
