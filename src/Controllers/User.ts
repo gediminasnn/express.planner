@@ -31,11 +31,11 @@ export default class UserController implements Controller {
   }
 
   public async findMany(
-    { query: { order = 'DESC', start = 0, limit = 10 } }: Request<any, any, any, PaginationVariables>,
+    { query: { order = Order.DESC, start = 0, limit = 10 } }: Request<any, any, any, PaginationVariables>,
     res: Response,
   ) {
     try {
-      const users = await this.userRepository.find({ order: { createdAt: order as Order }, take: limit, skip: start });
+      const users = await this.userRepository.find({ order: { createdAt: order }, take: limit, skip: start });
 
       return res.status(200).json(users);
     } catch (e) {

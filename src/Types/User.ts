@@ -1,4 +1,4 @@
-export type PaginationVariables = { order?: string; start?: number; limit?: number };
+export type PaginationVariables = { order?: Order; start?: number; limit?: number };
 
 export enum Order {
   ASC = 'ASC',
