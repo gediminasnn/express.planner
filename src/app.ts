@@ -1,6 +1,6 @@
-import Bootstrap from './Bootstrap';
-import UserController from './Controllers/User';
 import { initializeConnection } from './Utils/app';
+import Bootstrap from './Bootstrap';
+import UserController from './Modules/User/User.controller';
 
 (async () => {
   try {

@@ -1,9 +1,8 @@
 import { Repository, getRepository } from 'typeorm';
 
-import User from '../Entities/User';
+import User from './User.entity';
 
-import { PaginationVariables } from '../Types/User';
-import IUserService from '../Types/UserService';
+import { PaginationVariables, UserService as IUserService } from './types';
 
 export default class UserService implements IUserService {
   userRepository: Repository<User>;

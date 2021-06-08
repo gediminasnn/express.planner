@@ -1,12 +1,11 @@
 import { Request, Response, Router } from 'express';
 import { Repository, getRepository } from 'typeorm';
 
-import User from '../Entities/User';
-import UserService from '../Services/User';
+import User from './User.entity';
+import UserService from './User.service';
 
-import Controller from '../Types/Controller';
-import { Order, PaginationVariables } from '../Types/User';
-import IUserService from '../Types/UserService';
+import Controller from '../../Types/Controller';
+import { Order, PaginationVariables, UserService as IUserService } from './types';
 
 export default class UserController implements Controller {
   path: Controller['path'] = '/users';

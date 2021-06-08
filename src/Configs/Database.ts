@@ -2,8 +2,8 @@ import path from 'path';
 
 const recurringValues = {
   type: 'mysql',
-  entities: [path.join(__dirname, '../Entities/*.ts')],
-  cli: { entitiesDir: path.join(__dirname, '../Entities') },
+  entities: [path.join(__dirname, '../Modules/**/*.entity.ts')],
+  cli: { entitiesDir: path.join(__dirname, '../Modules') },
   synchronize: true,
 };
 

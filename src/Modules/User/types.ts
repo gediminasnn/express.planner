@@ -1,10 +1,15 @@
-import { UpdateResult, Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 
-import User from '../Entities/User';
+import User from './User.entity';
 
-import { PaginationVariables } from './User';
+export type PaginationVariables = { order?: Order; start?: number; limit?: number };
 
-interface UserService {
+export enum Order {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+
+export interface UserService {
   userRepository: Repository<User>;
   createUser(email: string, username: string, password: string): Promise<User>;
   findManyUsers(
@@ -16,5 +21,3 @@ interface UserService {
   updateUser(id: string, email: string, username: string, password: string): Promise<User>;
   deleteUser(id: string): Promise<UpdateResult>;
 }
-
-export default UserService;
