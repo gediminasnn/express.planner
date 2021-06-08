@@ -21,9 +21,9 @@ export default class UserController implements Controller {
     this.userService = new UserService();
   }
 
-  public async create({ body: { email, username, password } }: Request, res: Response) {
+  public async postUser({ body: { email, username, password } }: Request, res: Response) {
     try {
-      const user = await this.userService.createUser(email, username, password);
+      const user = await this.userService.postUser(email, username, password);
 
       return res.status(200).json(user);
     } catch (e) {
@@ -32,12 +32,12 @@ export default class UserController implements Controller {
     }
   }
 
-  public async findMany(
+  public async getUsers(
     { query: { order = Order.DESC, start = 0, limit = 10 } }: Request<any, any, any, PaginationVariables>,
     res: Response,
   ) {
     try {
-      const users = await this.userService.findManyUsers(order, start, limit);
+      const users = await this.userService.getUsers(order, start, limit);
 
       return res.status(200).json(users);
     } catch (e) {
@@ -46,9 +46,9 @@ export default class UserController implements Controller {
     }
   }
 
-  public async findOne({ params: { id } }: Request, res: Response) {
+  public async getUser({ params: { id } }: Request, res: Response) {
     try {
-      const user = await this.userService.findOneUser(id);
+      const user = await this.userService.getUser(id);
 
       return res.status(200).json(user);
     } catch (e) {
@@ -57,7 +57,7 @@ export default class UserController implements Controller {
     }
   }
 
-  public async update({ params: { id }, body: { email, username, password } }: Request, res: Response) {
+  public async updateUser({ params: { id }, body: { email, username, password } }: Request, res: Response) {
     try {
       const user = await this.userService.updateUser(id, email, username, password);
 
@@ -68,7 +68,7 @@ export default class UserController implements Controller {
     }
   }
 
-  public async delete({ params: { id } }: Request, res: Response) {
+  public async deleteUser({ params: { id } }: Request, res: Response) {
     try {
       await this.userService.deleteUser(id);
 
@@ -80,10 +80,10 @@ export default class UserController implements Controller {
   }
 
   initRoutes() {
-    this.router.post(`${this.path}`, this.create.bind(this));
-    this.router.get(`${this.path}`, this.findMany.bind(this));
-    this.router.get(`${this.path}/:id`, this.findOne.bind(this));
-    this.router.put(`${this.path}/:id`, this.update.bind(this));
-    this.router.delete(`${this.path}/:id`, this.delete.bind(this));
+    this.router.post(`${this.path}`, this.postUser.bind(this));
+    this.router.get(`${this.path}`, this.getUsers.bind(this));
+    this.router.get(`${this.path}/:id`, this.getUser.bind(this));
+    this.router.put(`${this.path}/:id`, this.updateUser.bind(this));
+    this.router.delete(`${this.path}/:id`, this.deleteUser.bind(this));
   }
 }

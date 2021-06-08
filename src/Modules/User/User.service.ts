@@ -11,12 +11,12 @@ export default class UserService implements IUserService {
     this.userRepository = getRepository(User);
   }
 
-  public createUser(email: string, username: string, password: string) {
+  public postUser(email: string, username: string, password: string) {
     const user = this.userRepository.create({ email, username, password });
     return this.userRepository.save(user);
   }
 
-  public findManyUsers(
+  public getUsers(
     order: PaginationVariables['order'],
     start: PaginationVariables['start'],
     limit: PaginationVariables['limit'],
@@ -24,7 +24,7 @@ export default class UserService implements IUserService {
     return this.userRepository.find({ order: { createdAt: order }, take: limit, skip: start });
   }
 
-  public findOneUser(id: string) {
+  public getUser(id: string) {
     return this.userRepository.findOneOrFail(id);
   }
 
