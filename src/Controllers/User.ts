@@ -6,6 +6,7 @@ import UserService from '../Services/User';
 
 import Controller from '../Types/Controller';
 import { Order, PaginationVariables } from '../Types/User';
+import IUserService from '../Types/UserService';
 
 export default class UserController implements Controller {
   path: Controller['path'] = '/users';
@@ -14,8 +15,7 @@ export default class UserController implements Controller {
 
   userRepository: Repository<User> = getRepository(User);
 
-  // TODO: Use interface
-  userService: UserService;
+  userService: IUserService;
 
   constructor() {
     this.initRoutes();
@@ -37,7 +37,7 @@ export default class UserController implements Controller {
     res: Response,
   ) {
     try {
-      const users = await this.userRepository.find({ order: { createdAt: order }, take: limit, skip: start });
+      const users = await this.userService.findManyUsers({ order, start, limit });
 
       return res.status(200).json(users);
     } catch (e) {
@@ -48,7 +48,7 @@ export default class UserController implements Controller {
 
   public async findOne({ params: { id } }: Request, res: Response) {
     try {
-      const user = await this.userRepository.findOneOrFail(id);
+      const user = await this.userService.findOneUser(id);
 
       return res.status(200).json(user);
     } catch (e) {
@@ -59,9 +59,7 @@ export default class UserController implements Controller {
 
   public async update({ params: { id }, body: { email, username, password } }: Request, res: Response) {
     try {
-      const user = await this.userRepository.findOneOrFail(id);
-
-      await this.userRepository.save({ ...user, email, username, password });
+      const user = await this.userService.updateUser(id, email, username, password);
 
       return res.status(200).json(user);
     } catch (e) {
@@ -72,7 +70,7 @@ export default class UserController implements Controller {
 
   public async delete({ params: { id } }: Request, res: Response) {
     try {
-      await this.userRepository.softDelete(id);
+      await this.userService.deleteUser(id);
 
       return res.status(200).send(`User ${id} deletion successful`);
     } catch (e) {
