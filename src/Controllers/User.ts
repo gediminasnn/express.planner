@@ -25,6 +25,7 @@ export default class UserController implements Controller {
   public async create({ body: { email, username, password } }: Request, res: Response) {
     try {
       const user = await this.userService.createUser(email, username, password);
+
       return res.status(200).json(user);
     } catch (e) {
       console.error(e);
