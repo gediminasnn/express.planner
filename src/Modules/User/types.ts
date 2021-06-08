@@ -11,7 +11,7 @@ export enum Order {
 
 export interface UserService {
   userRepository: Repository<User>;
-  postUser(email: string, username: string, password: string): Promise<User>;
+  createUser(email: string, username: string, password: string): Promise<User>;
   getUsers(
     order: PaginationVariables['order'],
     start: PaginationVariables['start'],

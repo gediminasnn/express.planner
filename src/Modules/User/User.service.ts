@@ -30,7 +30,6 @@ export default class UserService implements IUserService {
 
   public async updateUser(id: string, email: string, username: string, password: string) {
     const user = await this.userRepository.findOneOrFail(id);
-
     return this.userRepository.save({ ...user, email, username, password });
   }
 

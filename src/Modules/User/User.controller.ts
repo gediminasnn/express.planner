@@ -21,9 +21,9 @@ export default class UserController implements Controller {
     this.userService = new UserService();
   }
 
-  public async postUser({ body: { email, username, password } }: Request, res: Response) {
+  public async createUser({ body: { email, username, password } }: Request, res: Response) {
     try {
-      const user = await this.userService.postUser(email, username, password);
+      const user = await this.userService.createUser(email, username, password);
 
       return res.status(200).json(user);
     } catch (e) {
@@ -80,7 +80,7 @@ export default class UserController implements Controller {
   }
 
   initRoutes() {
-    this.router.post(`${this.path}`, this.postUser.bind(this));
+    this.router.post(`${this.path}`, this.createUser.bind(this));
     this.router.get(`${this.path}`, this.getUsers.bind(this));
     this.router.get(`${this.path}/:id`, this.getUser.bind(this));
     this.router.put(`${this.path}/:id`, this.updateUser.bind(this));
