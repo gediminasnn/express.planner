@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { cleanEnv, port, str } from 'envalid';
 import log4js from 'log4js';
 
-const validateEnv = () =>
+export const validateEnv = () =>
   cleanEnv(process.env, {
     API_PORT: port(),
 
@@ -15,7 +15,7 @@ const validateEnv = () =>
     NODE_ENV: str(),
   });
 
-const initLogger = () => {
+export const initLogger = () => {
   const logger: log4js.Logger = log4js.getLogger();
   logger.level = 'debug';
 
@@ -25,5 +25,3 @@ const initLogger = () => {
   console.error = (args) => logger.error(args);
   console.debug = (args) => logger.debug(args);
 };
-
-export { validateEnv, initLogger };

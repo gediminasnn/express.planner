@@ -1,11 +1,13 @@
+import { initializeConnection } from './Utils/app';
 import Bootstrap from './Bootstrap';
-import Example from './Controllers/Example';
-
-const app = new Bootstrap([new Example()]);
+import UserController from './Modules/User/User.controller';
 
 (async () => {
   try {
-    await app.initializeConnection();
+    await initializeConnection();
+
+    const app = new Bootstrap([new UserController()]);
+
     app.listen();
   } catch (e) {
     console.error(e);

@@ -2,11 +2,12 @@ import path from 'path';
 
 const recurringValues = {
   type: 'mysql',
-  entities: [path.join(__dirname, 'src/Entities/*.ts')],
+  entities: [path.join(__dirname, '../Modules/**/*.entity.ts')],
+  cli: { entitiesDir: path.join(__dirname, '../Modules') },
   synchronize: true,
 };
 
-export default {
+export const databaseConfig = {
   production: {
     ...recurringValues,
     host: process.env.MYSQL_HOST,

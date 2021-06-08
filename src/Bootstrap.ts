@@ -1,7 +1,5 @@
 import express from 'express';
-import { createConnection } from 'typeorm';
 
-import databaseConfig from './Config/Database';
 import { validateEnv, initLogger } from './Utils/Bootstrap';
 
 import IBootstrap from './Types/Bootstrap';
@@ -13,8 +11,6 @@ export default class Bootstrap implements IBootstrap {
   private port = process.env.API_PORT || 1338;
 
   private controllers: Controller[];
-
-  private databaseConfig = databaseConfig[process.env.NODE_ENV];
 
   constructor(controllers: Controller[]) {
     this.app = express();
@@ -33,19 +29,9 @@ export default class Bootstrap implements IBootstrap {
   }
 
   private mount(): void {
-    this.app.get('/', (_, res: express.Response) => res.send('Hello World!'));
+    this.app.get('/', (_, { send }: express.Response) => send('Hello World!'));
 
-    this.controllers.forEach((controller: Controller) => this.app.use(controller.router));
-  }
-
-  async initializeConnection() {
-    try {
-      await createConnection(this.databaseConfig);
-    } catch (e) {
-      throw new Error(e);
-    }
-
-    console.info('Mysql connection established!');
+    this.controllers.forEach(({ router }: Controller) => this.app.use(router));
   }
 
   listen(): void {
