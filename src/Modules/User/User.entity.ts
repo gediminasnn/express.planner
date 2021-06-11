@@ -1,13 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import bcrypt from 'bcrypt';
 
 @Entity()
 export default class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({
-    unique: true,
-  })
+  @Column({ default: null })
   username: string;
 
   @Column({
@@ -29,4 +28,12 @@ export default class User {
   @Column()
   @DeleteDateColumn()
   deletedAt: Date | null;
+
+  hashPassword() {
+    this.password = bcrypt.hashSync(this.password, 8);
+  }
+
+  validatePassword(unencryptedPassword: string) {
+    return bcrypt.compareSync(unencryptedPassword, this.password);
+  }
 }
