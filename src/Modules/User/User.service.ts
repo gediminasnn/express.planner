@@ -11,8 +11,11 @@ export default class UserService implements IUserService {
     this.userRepository = getRepository(UserEntity);
   }
 
-  public createUser(email: string, username: string, password: string) {
-    const user = this.userRepository.create({ email, username, password });
+  public createUser(email: string, password: string, username?: string) {
+    const user = this.userRepository.create({ email, password, username });
+
+    user.hashPassword();
+
     return this.userRepository.save(user);
   }
 
@@ -28,8 +31,15 @@ export default class UserService implements IUserService {
     return this.userRepository.findOneOrFail(id);
   }
 
+  public getUserByEmail(email: string) {
+    return this.userRepository.findOne({ where: { email } });
+  }
+
   public async updateUser(id: string, email: string, username: string, password: string) {
     const user = await this.userRepository.findOneOrFail(id);
+
+    user.hashPassword();
+
     return this.userRepository.save({ ...user, email, username, password });
   }
 
