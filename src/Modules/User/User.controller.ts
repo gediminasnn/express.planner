@@ -23,7 +23,7 @@ export default class UserController implements Controller {
 
   public async createUser({ body: { email, username, password } }: Request, res: Response) {
     try {
-      const user = await this.userService.createUser(email, username, password);
+      const user = await this.userService.createUser(email, password, username);
 
       return res.status(200).json(user);
     } catch (e) {
