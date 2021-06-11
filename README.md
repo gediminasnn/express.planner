@@ -28,6 +28,8 @@ MYSQL_HOST=database
 MYSQL_PORT=3306
 
 NODE_ENV=production
+
+JWT_SECRET=RANDOMSTRING123
 ```
 
 ## Technical description map
